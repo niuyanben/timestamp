@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>时间戳转换工具 - ts.b7z.net</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="keywords" content="Unix时间戳转换,时间戳转换工具" />
+<meta name="description" content="Unix时间戳转换可以把Unix时间转成北京时间。" />
+<link rel="shortcut icon" href="https://b7z.net/res/images/logo.png">
+  <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+  body{    color: #666;}
+.wrapper{margin-top:50px}
+  .ts-area span.tip{
+    padding-top: .375rem;
+    padding-bottom: .375rem;
+    margin-bottom: 0;
+    line-height: 1.5;
+    background-color: transparent;
+    border: solid transparent;
+    border-width: 1px 0;
+    font-size: 14px;
+  }
+
+  .ts-area .title{
+
+
+  }
+
+
+  .panel-subtitle {
+    text-indent: 10px;
+    font-weight: 400;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    font-size: 17px;
+    color: #428bca;
+  }
+  #txtNowDate, #txtNow, #txtDesStamp, #txtDesDate {
+    color: #666;
+    font-weight: 500;
+  }
+  #txtNowDate, #txtNow, #txtDesStamp, #txtSrcStamp, #txtDesDate, #txtLocale {
+    width: 300px;
+  }
+  .form-control {
+    display: inline-block;
+  }
+  .mod-time-input {
+    width: 80px;
+  }
+  .ui-mr-10 {
+    margin-right: 10px;
+  }
+  .ui-ml-10 {
+    margin-left: 10px;
+  }
+  .ui-mt-10 {
+    margin-top: 10px;
+  }
+  .ui-mt-20 {
+    margin-top: 50px;
+  }
+
+  .input-group{
+    max-width: unset;
+    width: 110px;
+    display: inline-flex;
+    margin: 5px;
+  }
+
+.highlight {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #f7f7f9;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+.highlight pre {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: transparent;
+    border: 0;
+    display: block;
+    font-size: 87.5%;
+    color: #212529;
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+header.header{    line-height: 26px;    padding: .5rem 1rem;}
+header.header a{color: #495057}
+header.header a:hover{color:#007bff}
+header.header ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+header.header .header-left, header.header .header-right{    display: inline-block;}
+header.header .header-right{float: right;}
+  </style>
+</head>
+<body>
+
+
+  <header class="header">
+    <div class="container-fluid">
+      <div class="header-left">
+        <ul>
+          <li><a href="//b7z.net"><svg style="vertical-align: text-bottom;" t="1565322847416" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1113" width="20" height="20"><path d="M800 448H237.3l201.4-201.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-256 256c-0.4 0.4-0.7 0.8-1.1 1.2-0.2 0.2-0.3 0.4-0.5 0.5-0.2 0.2-0.4 0.4-0.5 0.6-0.2 0.2-0.4 0.5-0.6 0.7-0.1 0.2-0.3 0.3-0.4 0.5-0.2 0.3-0.4 0.5-0.6 0.8-0.1 0.2-0.2 0.3-0.3 0.5l-0.6 0.9c-0.1 0.2-0.2 0.3-0.3 0.5-0.2 0.3-0.3 0.6-0.5 0.9-0.1 0.2-0.2 0.3-0.3 0.5-0.1 0.3-0.3 0.5-0.4 0.8l-0.3 0.6c-0.1 0.3-0.2 0.5-0.3 0.8-0.1 0.2-0.2 0.5-0.3 0.7-0.1 0.2-0.2 0.5-0.3 0.7-0.1 0.3-0.2 0.5-0.3 0.8-0.1 0.2-0.1 0.4-0.2 0.6l-0.3 0.9c-0.1 0.2-0.1 0.4-0.2 0.5-0.1 0.3-0.2 0.7-0.3 1 0 0.2-0.1 0.3-0.1 0.5-0.1 0.3-0.2 0.7-0.2 1 0 0.2-0.1 0.3-0.1 0.5-0.1 0.3-0.1 0.7-0.2 1 0 0.2 0 0.4-0.1 0.6 0 0.3-0.1 0.6-0.1 1 0 0.3 0 0.5-0.1 0.8 0 0.3 0 0.5-0.1 0.8v3.2c0 0.3 0 0.5 0.1 0.8 0 0.3 0 0.5 0.1 0.8 0 0.3 0.1 0.6 0.1 1 0 0.2 0 0.4 0.1 0.6 0.1 0.3 0.1 0.7 0.2 1 0 0.2 0.1 0.3 0.1 0.5 0.1 0.3 0.1 0.7 0.2 1 0 0.2 0.1 0.3 0.1 0.5 0.1 0.3 0.2 0.7 0.3 1 0.1 0.2 0.1 0.4 0.2 0.5l0.3 0.9c0.1 0.2 0.1 0.4 0.2 0.6 0.1 0.3 0.2 0.5 0.3 0.8 0.1 0.2 0.2 0.5 0.3 0.7 0.1 0.2 0.2 0.5 0.3 0.7 0.1 0.3 0.2 0.5 0.3 0.8l0.3 0.6c0.1 0.3 0.3 0.5 0.4 0.8 0.1 0.2 0.2 0.3 0.3 0.5 0.2 0.3 0.3 0.6 0.5 0.9 0.1 0.2 0.2 0.3 0.3 0.5l0.6 0.9c0.1 0.2 0.2 0.3 0.3 0.5 0.2 0.3 0.4 0.5 0.6 0.8 0.1 0.2 0.3 0.3 0.4 0.5 0.2 0.2 0.4 0.5 0.6 0.7 0.2 0.2 0.4 0.4 0.5 0.6 0.2 0.2 0.3 0.4 0.5 0.5 0.4 0.4 0.7 0.8 1.1 1.2l256 256c6.2 6.2 14.4 9.4 22.6 9.4s16.4-3.1 22.6-9.4c12.5-12.5 12.5-32.8 0-45.3L237.3 512H800c17.6 0 32 14.4 32 32v320c0 17.7 14.3 32 32 32s32-14.3 32-32V544c0-52.9-43.1-96-96-96z" p-id="1114" fill="#495057"></path></svg>&nbsp;b7z.net</a></li>
+        </ul>
+      </div>
+
+      <div class="header-right">
+        <ul>
+          <li><a href="/">ts.b7z.net</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="wrapper">
+
+
+
+
+    <div class="container">
+
+      <div class="row">
+        <div class="ts-area col-md-10 offset-md-1">
+          <div class="panel-body mod-json">
+            <div class="row"><h3 class="panel-subtitle"> &gt;&gt; Unix时间戳定义</h3></div>
+
+
+            <div class="row">
+
+
+              <form>
+                <div class="form-row align-items-center">
+                  <div class="col-auto">
+                    <label for="txtNowDate">现在的当地时间为：</label>
+                    <input type="text" class="form-control mb-2" id="txtNowDate">
+                  </div>
+                  <div class="col-auto">
+                    <button type="button" class="btn btn-primary mb-2" id="btnToggle"> &lt;- 暂停 / 开始 -&gt; </button>
+                  </div>
+                  <div class="col-auto">
+                      <input type="text" class="form-control mb-2" id="txtNow" readonly placeholder="">
+                  </div>
+
+
+                </div>
+              </form>
+
+
+            </div>
+
+
+
+
+
+
+
+            <div class="row ui-mt-20">
+              <h3 class="panel-subtitle"> &gt;&gt; Unix时间戳 转 当地时间</h3>
+            </div>
+            <div class="row">
+              <input class="form-control ui-d-ib" id="txtSrcStamp" type="text" placeholder="时间戳(eg:1388307215)" tabindex="1">
+              <input class="mod-time-input form-control ui-d-ib btn btn-primary ui-ml-10 ui-mr-10" id="btnStampToLocale" type="button" value="转换" tabindex="-1">
+              <input class="form-control ui-d-ib" id="txtDesDate" type="text" readonly="">
+            </div>
+            <div class="row ui-mt-20">
+              <h3 class="panel-subtitle"> &gt;&gt; 当地时间 转 Unix时间戳</h3>
+            </div>
+            <div class="row">
+              <input class="form-control ui-d-ib" id="txtLocale" type="text" placeholder="时间(eg:2015-04-01 10:01:01)">
+              <input class="mod-time-input form-control ui-d-ib btn btn-primary ui-ml-10 ui-mr-10" id="btnLocaleToStamp" type="button" value="转换" tabindex="-1">
+              <input class="form-control ui-d-ib" id="txtDesStamp" type="text" readonly="">
+            </div>
+
+
+            <div class="row ui-mt-20">
+              <h3 class="panel-subtitle"> &gt;&gt; 当地时间 转 Unix时间戳</h3>
+            </div>
+            <div class="row">
+
+              <form  name="utc8tounixForm">
+
+                <div class="input-group" style="width:130px">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">年</div>
+                  </div>
+                  <input type="number" class="form-control" name="year" maxlength="4" placeholder="2011">
+                </div>
+
+
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">月</div>
+                  </div>
+                  <input type="number" class="form-control" name="month" size=2 maxlength="2" placeholder="11">
+                </div>
+
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">日</div>
+                  </div>
+                  <input type="number" class="form-control" name="day" maxlength="2" placeholder="11">
+                </div>
+
+
+                <div class="input-group mb-2 mr-sm-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">时</div>
+                  </div>
+                  <input type="number" class="form-control" name="hour" maxlength="2" placeholder="11">
+                </div>
+
+                <div class="input-group mb-2 mr-sm-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">分</div>
+                  </div>
+                  <input type="number" class="form-control" name="minute" maxlength="2" placeholder="11">
+                </div>
+
+
+                <div class="input-group mb-2 mr-sm-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">秒</div>
+                  </div>
+                  <input type="number" class="form-control" name="second" size=2 maxlength="2" placeholder="11">
+                </div>
+                <div class="input-group" style="width:150px;">
+                  <button type="button" id="utc8tounix" class="btn btn-primary">转换Unix时间戳</button>
+                </div>
+                <div class="preview">
+                    <figure class="highlight"><pre></pre></figure>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+
+  String.prototype.trim = function() {
+    return this.replace(/^\s*|\s*$/g, "")
+  };
+  String.prototype.format = function() {
+    var b = arguments.length,
+    a = this;
+    while (b--) {
+      a = a.replace(new RegExp("\\{" + b + "\\}", "g"), arguments[b])
+    }
+    return a
+  };
+  Date.prototype.format = function(e) {
+    var a = function(m, l) {
+      var n = "",
+      k = (m < 0),
+      j = String(Math.abs(m));
+      if (j.length < l) {
+        n = (new Array(l - j.length + 1)).join("0")
+      }
+      return (k ? "-": "") + n + j
+    };
+    if ("string" != typeof e) {
+      return this.toString()
+    }
+    var b = function(k, j) {
+      e = e.replace(k, j)
+    };
+    var f = this.getFullYear(),
+    d = this.getMonth() + 1,
+    i = this.getDate(),
+    g = this.getHours(),
+    c = this.getMinutes(),
+    h = this.getSeconds();
+    b(/yyyy/g, a(f, 4));
+    b(/yy/g, a(parseInt(f.toString().slice(2), 10), 2));
+    b(/MM/g, a(d, 2));
+    b(/M/g, d);
+    b(/dd/g, a(i, 2));
+    b(/d/g, i);
+    b(/HH/g, a(g, 2));
+    b(/H/g, g);
+    b(/hh/g, a(g % 12, 2));
+    b(/h/g, g % 12);
+    b(/mm/g, a(c, 2));
+    b(/m/g, c);
+    b(/ss/g, a(h, 2));
+    b(/s/g, h);
+    return e
+  };
+  String.prototype.getBytes = function() {
+    var b = this.replace(/\n/g, "xx").replace(/\t/g, "x");
+    var a = encodeURIComponent(b);
+    return a.replace(/%[A-Z0-9][A-Z0-9]/g, "x").length
+  };
+  var getOuterHtmlEllipsis = function(d) {
+    var b = /(<[^>]+>)/g;
+    var a = b.exec(d.outerHTML);
+    var c = a ? a[1] : d.outerHTML;
+    c = c.length > 40 ? c.substr(0, 40) + "...": c;
+    return c.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+  };
+  var getOuterAndInnerHtmlEllipsis = function(b) {
+    var a = jQuery("<div></div>").append(b).html()
+  };
+
+
+    $(function () {
+      var Timestamp = (function() {
+        var c = 0;
+        var f = function (input) {
+              if ((input.length > 1) && (input.substr(0, 1) == "0")) {
+                  return input.substr(1);
+              } else {
+                  return input;
+              }
+          };
+        var b = function() {
+          $("#btnStampToLocale").click(function(g) {
+            var f = $.trim($("#txtSrcStamp").val());
+            if (f.length == 0) {
+              alert("请先填写你需要转换的Unix时间戳");
+              return
+            }
+            if (!parseInt(f, 10)) {
+              alert("请输入合法的Unix时间戳");
+              return
+            }
+            $("#txtDesDate").val((new Date(parseInt(f, 10) * 1000)).format("yyyy-MM-dd HH:mm:ss"))
+          });
+          $("#btnLocaleToStamp").click(function(g) {
+            var f = $.trim($("#txtLocale").val());
+            f = Date.parse(f);
+            if (isNaN(f)) {
+              alert("请输入合法的时间格式，如：2014-04-01 10:01:01，或：2014-01-01")
+            }
+            $("#txtDesStamp").val(f / 1000)
+          });
+          $("#btnToggle").click(function(g) {
+            var f = $(this).data("model") || 0;
+            if (f) {
+              $(this).data("model", 0).val("暂停");
+              a()
+            } else {
+              $(this).data("model", 1).val("开始");
+              window.clearInterval(c)
+            }
+          });
+          $("#utc8tounix").click(function(){
+            var isms = $("#utc8tounixsel").val();
+                var form = document.utc8tounixForm;
+                var year = form.year.value; if (!year) { /*alert("时间格式不正确");*/return; }
+                var month = f(form.month.value);
+                var day = f(form.day.value);
+                var hour = f(form.hour.value);
+                var minute = f(form.minute.value);
+                var second = f(form.second.value);
+                year = year ? year : new Date().getFullYear(), month = month ? month : 1, day = day ? day : 1, hour = hour ? hour : (year == 1970 ? 0 : 0), minute = minute ? minute : 0, second = second ? second : 0;
+                //var humanDate = new Date(Date.UTC(year, month, day, hour, minute, second));
+
+                var humanDate = new Date(year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second);
+                if (humanDate.format('yyyy') == "NaN") { /*alert("时间格式不正确");*/return; }
+
+                $('.highlight pre').text(humanDate.getTime());
+
+          });
+        };
+        var a = function() {
+          var f = $("#txtNowDate");
+          var e = $("#txtNow");
+          c = window.setInterval(function() {
+            f.val((new Date().format("yyyy-MM-dd HH:mm:ss")));
+            e.val(Math.round((new Date()).getTime() / 1000))
+          },
+          1000)
+        };
+        var d = function() {
+          $(function() {
+            a();
+            b();
+            $("#tab0_url").focus()
+          })
+        };
+        return {
+          init: d
+        }
+      })();
+      Timestamp.init();
+    });
+
+    </script>
+  </body>
+  </html>
